@@ -137,7 +137,6 @@ func p2cardScore(hand string) int {
 func part1(input []string) int {
 	score := 0
 	var camelCards []Round
-	// Create struct for each hand, with base12 representation of card score
 	for _,game := range input {
 		var r Round
 		r.hand = strings.Fields(game)[0]
@@ -159,7 +158,6 @@ func part1(input []string) int {
 func part2(input []string) int {
 	score := 0
 	var camelCards []Round
-	// Create struct for each hand, with base12 representation of card score
 	for _,game := range input {
 		var r Round
 		r.hand = strings.Fields(game)[0]
