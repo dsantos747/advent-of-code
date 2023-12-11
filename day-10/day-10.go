@@ -1,10 +1,11 @@
 package main
 
 import (
-	"AOC23/tools"
+	// "AOC23/tools"
 	"fmt"
 	"strings"
-	// tools "github.com/dsantos747/advent-of-code-2023/tools"
+
+	tools "github.com/dsantos747/advent-of-code-2023/tools"
 )
 
 type Position struct {

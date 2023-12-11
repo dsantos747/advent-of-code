@@ -1,12 +1,14 @@
 package main
 
 import (
-	"AOC23/tools"
+	// "AOC23/tools"
 	"fmt"
 	"math"
 	"sort"
 	"strconv"
 	"strings"
+
+	tools "github.com/dsantos747/advent-of-code-2023/tools"
 )
 
 type Round struct {
