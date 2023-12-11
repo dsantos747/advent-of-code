@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	tools "github.com/dsantos747/advent-of-code-2023/tools"
+	tools "github.com/dsantos747/advent-of-code-2023/api/tools"
 )
 
 type Round struct {
