@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	tools "github.com/dsantos747/advent-of-code-2023/api/tools"
+	tools "github.com/dsantos747/advent-of-code-2023/backend/tools"
 )
 
 type Galaxy struct {
