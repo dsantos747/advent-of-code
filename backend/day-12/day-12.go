@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	tools "github.com/dsantos747/advent-of-code-2023/backend/tools"
+	tools "github.com/dsantos747/advent-of-code-2023/tools"
 )
 
 func recurse(chars string, groups []int, a, b int, cache [][]int) int {
