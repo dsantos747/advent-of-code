@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-func transpose(lines []string) []string {
+func Transpose(lines []string) []string {
 	splitLines := [][]string{}
 	for _,line := range lines {
 		a := strings.Split(line,"")
