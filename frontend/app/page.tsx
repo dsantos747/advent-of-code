@@ -28,7 +28,7 @@ export default function Home() {
     }
   };
 
-  const testVal = fetchData();
+  // const testVal = fetchData();
 
   const dayCount = 12;
 
@@ -37,7 +37,7 @@ export default function Home() {
       <div className='z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex'>
         <div className='basis-1/3'>
           <p>Need to handle input from browser being either LF or CRLF</p>
-          <div>{testVal}</div>
+          {/*<div>{testVal}</div>*/}
         </div>
         <div className='text-left'>
           <form id='daySelectForm' action={submit} className='flex flex-col gap-2'>
