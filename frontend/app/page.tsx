@@ -1,3 +1,5 @@
+import Grid from './components/colourGrid';
+
 const fetchData = async () => {
   // const baseUrl = process.env.API_URL;
   const response = await fetch(`https://europe-west9-advent-of-code-408219.cloudfunctions.net/hello-world-test`, {
@@ -32,33 +34,32 @@ export default function Home() {
 
   const testVal = fetchData();
 
-  const dayCount = 12;
+  const dayCount = 17;
 
   return (
     <main className='flex min-h-screen flex-col items-center justify-between p-24'>
       <div className='z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex'>
-        <div className='basis-1/3'>
-          <p>Need to handle input from browser being either LF or CRLF</p>
-          <div>{testVal}</div>
-        </div>
         <div className='text-left'>
-          <form id='daySelectForm' action={submit} className='flex flex-col gap-2'>
+          <form id='challengeForm' action={submit} className='flex flex-col gap-2'>
             <div>
               <label>Choose Challenge Day</label>
-              <div className='grid grid-cols-5 gap-1'>
+              <div className='-z-10 m-1'>
+                <Grid length={25}></Grid>
+              </div>
+              {/* <div className='grid grid-cols-5 rounded-lg'>
                 {Array.from({ length: 25 }, (_, i) => i + 1).map((item, index) => {
                   return (
-                    <div key={index} className='' hidden={item > dayCount ? true : false}>
+                    <div key={index} className='bg-blue-600 aspect-square' hidden={item > dayCount ? true : false}>
                       <input id={`radio_${item}`} type='radio' name='day' value={item} className='hidden peer'></input>
                       <label
                         htmlFor={`radio_${item}`}
-                        className='flex justify-center items-center px-2 aspect-square rounded-sm peer-checked:bg-[radial-gradient(rgb(243,227,124)_70%,rgb(243,211,74)_100%)] border border-gray-400'>
+                        className='flex justify-center items-center m-0.5 px-2 aspect-square rounded-sm bg-black peer-checked:bg-[radial-gradient(rgb(243,227,124)_70%,rgb(243,211,74)_100%)] border border-gray-400'>
                         {item}
                       </label>
                     </div>
                   );
                 })}
-              </div>
+              </div> */}
             </div>
             <div className='flex flex-col'>
               <label htmlFor='textInput'>Paste your input below:</label>
@@ -70,7 +71,6 @@ export default function Home() {
           </form>
           <div>
             <div>Answers:</div>
-            <div>ANSWER GOES HERE</div>
             {/* <div>{testVal}</div> */}
           </div>
         </div>
