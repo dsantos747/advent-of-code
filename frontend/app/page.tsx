@@ -37,31 +37,17 @@ export default function Home() {
   const dayCount = 17;
 
   return (
-    <main className='flex min-h-screen flex-col items-center justify-between p-24'>
-      <div className='z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex'>
-        <div className='text-left'>
-          <form id='challengeForm' action={submit} className='flex flex-col gap-2'>
-            <div>
+    <main className='container'>
+      <div className='content splash-content'>
+        <div className=''>
+          <form id='challengeForm' action={submit} className=''>
+            <div id='challengeDay'>
               <label>Choose Challenge Day</label>
-              <div className='-z-10 m-1'>
+              <div className=''>
                 <Grid length={25}></Grid>
               </div>
-              {/* <div className='grid grid-cols-5 rounded-lg'>
-                {Array.from({ length: 25 }, (_, i) => i + 1).map((item, index) => {
-                  return (
-                    <div key={index} className='bg-blue-600 aspect-square' hidden={item > dayCount ? true : false}>
-                      <input id={`radio_${item}`} type='radio' name='day' value={item} className='hidden peer'></input>
-                      <label
-                        htmlFor={`radio_${item}`}
-                        className='flex justify-center items-center m-0.5 px-2 aspect-square rounded-sm bg-black peer-checked:bg-[radial-gradient(rgb(243,227,124)_70%,rgb(243,211,74)_100%)] border border-gray-400'>
-                        {item}
-                      </label>
-                    </div>
-                  );
-                })}
-              </div> */}
             </div>
-            <div className='flex flex-col'>
+            <div id='challengeText' className='flex flex-col'>
               <label htmlFor='textInput'>Paste your input below:</label>
               <textarea id='textInput' name='textInput'></textarea>
             </div>
@@ -69,9 +55,13 @@ export default function Home() {
               Generate Answer
             </button>
           </form>
-          <div>
-            <div>Answers:</div>
-            {/* <div>{testVal}</div> */}
+        </div>
+        <div>
+          <div>Fix mouseglow carrying on when mouse leaves grid area</div>
+          <div>Answers:</div>
+          <div id='answer'>
+            {/* {testVal} */}
+            Response will go here
           </div>
         </div>
       </div>

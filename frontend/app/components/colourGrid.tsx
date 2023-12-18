@@ -24,22 +24,16 @@ function Grid({ length }: Props) {
 
   return (
     <div
-      className='-z-40 grid grid-cols-5 rounded-lg'
+      className='colourGrid'
       onMouseEnter={() => setMouseOver(true)}
       onMouseLeave={() => setMouseOver(false)}
       onMouseMove={handleMouseMove}>
-      {mouseOver && (
-        <div
-          style={{ top: mousePos.y - 10, left: mousePos.x - 10 }}
-          className='transition-all absolute -z-40 w-6 h-6 bg-green-500 rounded-full blur-md'></div>
-      )}
+      {mouseOver && <div style={{ top: mousePos.y - 16, left: mousePos.x - 16 }} className='mouseGlow'></div>}
       {Array.from({ length }, (_, i) => i + 1).map((item, index) => {
         return (
-          <div key={index} className='z-10 aspect-square' hidden={item > length ? true : false}>
-            <input id={`radio_${item}`} type='radio' name='day' value={item} className='hidden peer'></input>
-            <label
-              htmlFor={`radio_${item}`}
-              className='flex justify-center items-center m-0.5 px-2 aspect-square rounded-sm bg-black peer-checked:bg-[radial-gradient(rgb(243,227,124)_70%,rgb(243,211,74)_100%)] border border-gray-400'>
+          <div key={index} className='colourTile' hidden={item > length ? true : false}>
+            <input id={`radio_${item}`} type='radio' name='day' value={item} className=''></input>
+            <label htmlFor={`radio_${item}`} className=''>
               {item}
             </label>
           </div>

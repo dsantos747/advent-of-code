@@ -1,0 +1,214 @@
+/*
+     CSS RESET
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+/*
+*/
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 5, 25, 22;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6rem;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  max-width: 72rem;
+  width: 100%;
+}
+
+.splash-content {
+  z-index: 10;
+  max-width: 64rem;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: start;
+  font-family: monospace;
+  text-align: left;
+  gap: 4rem;
+}
+
+@media screen and (max-width: 768px) {
+  .splash-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  #challengeForm {
+    max-width: 100%;
+  }
+}
+
+#header {
+  width: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 6rem;
+  z-index: 50;
+}
+
+#header .content {
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+#challengeForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: -10;
+  max-width: 16rem;
+  height: 100%;
+}
+
+#challengeDay div {
+  margin: 0.125rem;
+  /* z-index: 0; */
+}
+
+#challengeText textarea {
+  margin: 0.25rem 0.5rem;
+  width: 100%;
+}
+
+#challengeForm button {
+  margin: 0.25rem auto;
+  width: fit-content;
+  padding: 0.5rem 1.5rem;
+  background-color: rgb(var(--background-end-rgb));
+  border: 0.125rem solid rgb(var(--background-start-rgb));
+  border-radius: 0.5rem;
+  color: rgb(var(--foreground-rgb));
+}
+
+#answer {
+  background-color: rgb(var(--background-end-rgb));
+  width: 100%;
+  height: 50px;
+  padding: 0.5rem 1rem;
+}
+
+.colourGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-radius: 0.5rem;
+  aspect-ratio: 1;
+  z-index: 1;
+}
+
+.colourGrid:hover > .mouseGlow {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mouseGlow {
+  position: absolute;
+  width: 2rem;
+  aspect-ratio: 1;
+  background-color: green;
+  border-radius: 100%;
+  filter: blur(0.5rem);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.colourTile {
+  z-index: 10;
+  aspect-ratio: 1;
+}
+
+.colourTile input {
+  display: none;
+}
+
+.colourTile input:not(:checked) + label {
+  /* background-color: rgb(243, 227, 124); */
+  background: radial-gradient(rgb(var(--background-start-rgb)) 70%, rgb(var(--background-start-rgb)) 100%);
+}
+
+.colourTile input:checked + label {
+  /* background-color: rgb(243, 227, 124); */
+  background: radial-gradient(rgb(243, 227, 124) 70%, rgb(243, 211, 74) 100%);
+  color: rgb(var(--background-start-rgb));
+}
+
+.colourTile label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.125rem;
+  /* padding: 0 0.5rem; */
+  aspect-ratio: 1;
+  border-radius: 0.125rem;
+  background-color: var(--background-end-rgb);
+  border: 0.125rem solid gray;
+}
