@@ -48,14 +48,20 @@ h6 {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --highlight-start-rgb: 173, 28, 28;
+  --highlight-end-rgb: 128, 0, 28;
+  --text-glow-rgba: 244, 235, 100, 0.25;
+  --bulb-rgb: 125, 36, 6;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 5, 25, 22;
-    --background-end-rgb: 0, 0, 0;
-  }
+.dark {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 5, 25, 22;
+  --background-end-rgb: 0, 0, 0;
+  --highlight-start-rgb: 14, 107, 45;
+  --highlight-end-rgb: 10, 77, 32;
+  --text-glow-rgba: 10, 77, 32, 1;
+  --bulb-rgb: 244, 235, 100;
 }
 
 body {
@@ -109,11 +115,27 @@ body {
   align-items: center;
   padding: 1.5rem 6rem;
   z-index: 50;
+  font-family: monospace;
+  text-shadow: 0 0 10px rgba(var(--text-glow-rgba));
+  backdrop-filter: blur(20px);
+  mask: linear-gradient(0deg, transparent, black 50%);
+  -webkit-mask: linear-gradient(0deg, transparent, black 50%);
 }
 
 #header .content {
   justify-content: space-between;
   flex-grow: 1;
+}
+
+#header button {
+  background: none;
+  border: none;
+  font-size: large;
+}
+
+#header button:hover {
+  color: rgb(var(--bulb-rgb));
+  transition: color 0.5s ease-in-out;
 }
 
 #challengeForm {
@@ -145,11 +167,19 @@ body {
   color: rgb(var(--foreground-rgb));
 }
 
+#challengeForm button:hover {
+  border-color: rgb(var(--highlight-start-rgb));
+  transition: border 0.15s ease;
+  translate: -1px -1px;
+  transition: translate 0.1s ease;
+}
+
 #answer {
-  background-color: rgb(var(--background-end-rgb));
+  background-color: rgb(var(--background-start-rgb));
   width: 100%;
   height: 50px;
   padding: 0.5rem 1rem;
+  border-radius: 6px;
 }
 
 .colourGrid {
@@ -169,7 +199,7 @@ body {
   position: absolute;
   width: 2rem;
   aspect-ratio: 1;
-  background-color: green;
+  background-color: rgb(var(--highlight-start-rgb));
   border-radius: 100%;
   filter: blur(0.5rem);
   opacity: 0;
@@ -191,14 +221,12 @@ body {
 }
 
 .colourTile input:not(:checked) + label {
-  /* background-color: rgb(243, 227, 124); */
   background: radial-gradient(rgb(var(--background-start-rgb)) 70%, rgb(var(--background-start-rgb)) 100%);
 }
 
 .colourTile input:checked + label {
-  /* background-color: rgb(243, 227, 124); */
-  background: radial-gradient(rgb(243, 227, 124) 70%, rgb(243, 211, 74) 100%);
-  color: rgb(var(--background-start-rgb));
+  background: radial-gradient(rgb(var(--highlight-start-rgb)) 70%, rgb(var(--highlight-end-rgb)) 100%);
+  color: rgb(255, 255, 255);
 }
 
 .colourTile label {
@@ -211,4 +239,10 @@ body {
   border-radius: 0.125rem;
   background-color: var(--background-end-rgb);
   border: 0.125rem solid gray;
+}
+
+.colourTile label:hover {
+  translate: -1px -1px;
+  transition: all 0.1s ease;
+  scale: 0.95 0.95;
 }

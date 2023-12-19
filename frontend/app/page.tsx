@@ -51,17 +51,23 @@ export default function Home() {
               <label htmlFor='textInput'>Paste your input below:</label>
               <textarea id='textInput' name='textInput'></textarea>
             </div>
-            <button type='submit' className='mx-auto flex justify-center items-center p-2 border rounded-sm border-amber-400'>
+            <button type='submit' className=''>
               Generate Answer
             </button>
           </form>
         </div>
         <div>
-          <div>Fix mouseglow carrying on when mouse leaves grid area</div>
           <div>Answers:</div>
           <div id='answer'>
             {/* {testVal} */}
             Response will go here
+          </div>
+          <div>
+            <br />
+            <br />
+            <br />
+            <br />
+            Fix mouseglow carrying on when mouse leaves grid area
           </div>
         </div>
       </div>
