@@ -136,6 +136,7 @@ body {
 #header button:hover {
   color: rgb(var(--bulb-rgb));
   transition: color 0.5s ease-in-out;
+  cursor: pointer;
 }
 
 #challengeForm {
