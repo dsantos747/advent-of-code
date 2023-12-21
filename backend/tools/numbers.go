@@ -20,6 +20,6 @@ func LCM(slice []int) int {
 	return lcm
 }
 
-func mod(a, n int) int {
+func Mod(a, n int) int {
 	return ((a % n) + n) % n
 }

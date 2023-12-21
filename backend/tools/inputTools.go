@@ -2,7 +2,7 @@ package tools
 
 import "strings"
 
-func findSingleSubstring(input []string, character string) (i, j int) {
+func FindSingleSubstring(input []string, character string) (i, j int) {
 	for i, line := range input {
 		if strings.Contains(line, character) {
 			for j, char := range line {
