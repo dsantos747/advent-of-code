@@ -1,10 +1,9 @@
 package day1
 
 import (
-	"fmt"
 	"regexp"
 	"strconv"
-	// "strings"
+	"strings"
 	// tools "github.com/dsantos747/advent-of-code-2023/tools"
 )
 
@@ -55,19 +54,19 @@ func part2(input []string) int {
 	return calibSum
 }
 
-func Day1(input []string) (int, int) {
+func Solve(data string) (int, int, error) {
 	// data, err := tools.ReadInput("./input.txt")
 	// if err != nil {
 	// 	fmt.Println("Error reading input:", err)
 	// 	return 0,0
 	// }
-	// input := strings.Split(data, "\n")
+	input := strings.Split(data, "\n")
 
 	p1 := part1(input)
-	fmt.Println("The answer to part 1 is", p1)
+	// fmt.Println("The answer to part 1 is", p1)
 
 	p2 := part2(input)
-	fmt.Println("The answer to part 2 is", p2)
+	// fmt.Println("The answer to part 2 is", p2)
 
-	return p1, p2
+	return p1, p2, nil
 }

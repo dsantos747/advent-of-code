@@ -20,21 +20,24 @@ export default function Home() {
   const submit = async (formdata: FormData) => {
     'use server';
 
-    const baseUrl = process.env.API_URL;
-    const response = await fetch(`${baseUrl}/api/hello`);
+    const data = { 'day': 1, 'input': formdata.get('textInput') };
+    const baseUrl = 'http://localhost:8080/';
+    const response = await fetch(`${baseUrl}`, {
+      cache: 'no-store',
+      method: 'POST',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
     if (response.ok) {
-      const data = await response.text(); ///////// But now how do I update the value on the screen with this?
-      ///////// Is it even possible to do this in a server form?
-      // return data;
+      const res = await response.text();
+      console.log(res);
     } else {
       console.error('Error: response not Ok', response.status, response.statusText);
-      // return `ERROR - Code ${response.status}`;
     }
   };
 
   const testVal = fetchData();
-
-  const dayCount = 17;
 
   return (
     <main className='container'>
@@ -67,7 +70,8 @@ export default function Home() {
             <br />
             <br />
             <br />
-            Fix mouseglow carrying on when mouse leaves grid area
+            Fix mouseglow carrying on when mouse leaves grid area<br></br>
+            <br></br>Maybe hide it behind all content on the screen, except background?
           </div>
         </div>
       </div>
