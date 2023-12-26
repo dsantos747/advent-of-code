@@ -52,6 +52,7 @@ h6 {
   --highlight-end-rgb: 128, 0, 28;
   --text-glow-rgba: 244, 235, 100, 0.25;
   --bulb-rgb: 125, 36, 6;
+  --footer-text-rgb: 140, 140, 140;
 }
 
 .dark {
@@ -62,11 +63,21 @@ h6 {
   --highlight-end-rgb: 10, 77, 32;
   --text-glow-rgba: 10, 77, 32, 1;
   --bulb-rgb: 244, 235, 100;
+  --footer-text-rgb: 10, 77, 32;
 }
 
 body {
+  position: relative;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+h1 {
+  font-size: 1.6rem;
+}
+
+a {
+  color: inherit;
 }
 
 .container {
@@ -75,7 +86,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 6rem;
+  padding: 8rem 6rem 4rem 6rem;
 }
 
 .content {
@@ -91,20 +102,8 @@ body {
   flex-direction: row;
   justify-content: flex-start;
   align-items: start;
-  font-family: monospace;
   text-align: left;
   gap: 4rem;
-}
-
-@media screen and (max-width: 768px) {
-  .splash-content {
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  #challengeForm {
-    max-width: 100%;
-  }
 }
 
 #header {
@@ -113,9 +112,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.5rem 6rem;
+  padding: 1.5rem 6rem 2.5rem 6rem;
   z-index: 50;
-  font-family: monospace;
   text-shadow: 0 0 10px rgba(var(--text-glow-rgba));
   backdrop-filter: blur(20px);
   mask: linear-gradient(0deg, transparent, black 50%);
@@ -137,6 +135,15 @@ body {
   color: rgb(var(--bulb-rgb));
   transition: color 0.5s ease-in-out;
   cursor: pointer;
+}
+
+#footer {
+  padding: 0.5rem 1rem;
+  /* display: fixed; */
+  position: absolute;
+  bottom: 0;
+  font-size: 0.8rem;
+  color: rgba(var(--footer-text-rgb));
 }
 
 #challengeForm {
@@ -175,12 +182,23 @@ body {
   transition: translate 0.1s ease;
 }
 
-#answer {
+.answer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0.5rem 0;
+  gap: 0.5rem;
+}
+
+.answerField {
   background-color: rgb(var(--background-start-rgb));
-  width: 100%;
-  height: 50px;
-  padding: 0.5rem 1rem;
+  display: flex;
+  /* width: 100%; */
+  height: 2.25rem;
+  padding: 0 1rem;
+  align-items: center;
   border-radius: 6px;
+  min-width: 8rem;
 }
 
 .colourGrid {
@@ -234,7 +252,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0.125rem;
+  margin: 0.0625rem;
   /* padding: 0 0.5rem; */
   aspect-ratio: 1;
   border-radius: 0.125rem;
@@ -246,4 +264,28 @@ body {
   translate: -1px -1px;
   transition: all 0.1s ease;
   scale: 0.95 0.95;
+}
+
+@media screen and (max-width: 768px) {
+  .splash-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  #challengeForm {
+    max-width: 100%;
+  }
+
+  .container {
+    padding: 8rem 4rem 4rem 4rem;
+  }
+
+  #header {
+    /* padding: 1.5rem 3rem; */
+    padding: 1.5rem 3rem 2.5rem 3rem;
+  }
 }

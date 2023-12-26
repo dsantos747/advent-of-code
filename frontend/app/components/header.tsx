@@ -6,7 +6,11 @@ function Header({}: Props) {
   return (
     <div id='header' className=''>
       <div className='content'>
-        <h1>Advent of code 2023</h1>
+        <div>
+          <h1>Advent of Code 2023</h1>
+          <p>Solutions Calculator</p>
+        </div>
+
         <ThemeSwitch></ThemeSwitch>
       </div>
     </div>

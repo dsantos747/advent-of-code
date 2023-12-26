@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Red_Hat_Mono } from 'next/font/google';
 import './styles.css';
 import Header from './components/header';
+import Footer from './components/footer';
 import { ThemeProvider } from './components/themeProvider';
 
-const inter = Inter({ subsets: ['latin'] });
+const fontMono = Red_Hat_Mono({ weight: '400', subsets: ['latin'], fallback: ['monospace', 'system-ui'] });
 
 export const metadata: Metadata = {
   title: 'Advent of Code 2023 - Solutions Calculator',
@@ -15,10 +16,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={fontMono.className}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
           <Header></Header>
           {children}
+          <Footer></Footer>
         </ThemeProvider>
       </body>
     </html>
