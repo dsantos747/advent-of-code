@@ -59,6 +59,11 @@ func HelloAOC(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "The answer to part 1 is %d.<br/>The answer to part 2 is %d.", p1, p2)
+	response := map[string]interface{}{
+		"p1": p1,
+		"p2": p2,
+	}
 
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
 }
