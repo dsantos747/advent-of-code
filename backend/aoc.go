@@ -7,6 +7,16 @@ import (
 
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 	day1 "github.com/dsantos747/advent-of-code-2023/day-1"
+	day10 "github.com/dsantos747/advent-of-code-2023/day-10"
+	day11 "github.com/dsantos747/advent-of-code-2023/day-11"
+	day2 "github.com/dsantos747/advent-of-code-2023/day-2"
+	day3 "github.com/dsantos747/advent-of-code-2023/day-3"
+	day4 "github.com/dsantos747/advent-of-code-2023/day-4"
+	day5 "github.com/dsantos747/advent-of-code-2023/day-5"
+	day6 "github.com/dsantos747/advent-of-code-2023/day-6"
+	day7 "github.com/dsantos747/advent-of-code-2023/day-7"
+	day8 "github.com/dsantos747/advent-of-code-2023/day-8"
+	day9 "github.com/dsantos747/advent-of-code-2023/day-9"
 	"github.com/rs/cors"
 )
 
@@ -19,6 +29,16 @@ type DayFunc func(input string) (int, int, error)
 
 var DayFunctions = []DayFunc{
 	day1.Solve,
+	day2.Solve,
+	day3.Solve,
+	day4.Solve,
+	day5.Solve,
+	day6.Solve,
+	day7.Solve,
+	day8.Solve,
+	day9.Solve,
+	day10.Solve,
+	day11.Solve,
 }
 
 func init() {

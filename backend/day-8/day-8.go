@@ -1,8 +1,6 @@
-package main
+package day8
 
 import (
-	// "AOC23/tools"
-	"fmt"
 	"strconv"
 	"strings"
 
@@ -79,19 +77,14 @@ func part2(data []string) int {
 	}
 }
 
-func main() {
+// Note - comment this out if using p2 test input
+// NEED TO FIX THIS - ENSURE IT WORKS FOR BOTH TEST AND NON TEST
 
-	input, err := tools.ReadInput("./input.txt")
-	if err != nil {
-		fmt.Println("Error reading input:", err)
-		return
-	}
-	data := strings.Split(input, "\n")
+func Solve(data string) (int, int, error) {
+	input := strings.Split(data, "\n")
 
-	// Note - comment this out if using p2 test input
-	p1 := part1(data)
-	fmt.Println("The answer to part 1 is", p1)
+	p1 := part1(input)
+	p2 := part2(input)
 
-	p2 := part2(data)
-	fmt.Println("The answer to part 2 is", p2)
+	return p1, p2, nil
 }
