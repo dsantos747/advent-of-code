@@ -9,6 +9,12 @@ import (
 	day1 "github.com/dsantos747/advent-of-code-2023/day-1"
 	day10 "github.com/dsantos747/advent-of-code-2023/day-10"
 	day11 "github.com/dsantos747/advent-of-code-2023/day-11"
+	day12 "github.com/dsantos747/advent-of-code-2023/day-12"
+	day13 "github.com/dsantos747/advent-of-code-2023/day-13"
+	day14 "github.com/dsantos747/advent-of-code-2023/day-14"
+	day15 "github.com/dsantos747/advent-of-code-2023/day-15"
+	day16 "github.com/dsantos747/advent-of-code-2023/day-16"
+	day17 "github.com/dsantos747/advent-of-code-2023/day-17"
 	day2 "github.com/dsantos747/advent-of-code-2023/day-2"
 	day3 "github.com/dsantos747/advent-of-code-2023/day-3"
 	day4 "github.com/dsantos747/advent-of-code-2023/day-4"
@@ -39,6 +45,12 @@ var DayFunctions = []DayFunc{
 	day9.Solve,
 	day10.Solve,
 	day11.Solve,
+	day12.Solve,
+	day13.Solve,
+	day14.Solve,
+	day15.Solve,
+	day16.Solve,
+	day17.Solve,
 }
 
 func init() {

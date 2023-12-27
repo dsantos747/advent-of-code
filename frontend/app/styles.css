@@ -53,6 +53,7 @@ h6 {
   --text-glow-rgba: 244, 235, 100, 0.25;
   --bulb-rgb: 125, 36, 6;
   --footer-text-rgb: 140, 140, 140;
+  --footer-text-hover-rgb: 173, 28, 28;
 }
 
 .dark {
@@ -63,7 +64,8 @@ h6 {
   --highlight-end-rgb: 10, 77, 32;
   --text-glow-rgba: 10, 77, 32, 1;
   --bulb-rgb: 244, 235, 100;
-  --footer-text-rgb: 10, 77, 32;
+  --footer-text-rgb: 80, 80, 80;
+  --footer-text-hover-rgb: 10, 77, 32;
 }
 
 body {
@@ -146,6 +148,11 @@ a {
   color: rgba(var(--footer-text-rgb));
 }
 
+#footer a:hover {
+  color: rgb(var(--footer-text-hover-rgb));
+  transition: color 0.1s ease;
+}
+
 #challengeForm {
   display: flex;
   flex-direction: column;
@@ -193,7 +200,6 @@ a {
 .answerField {
   background-color: rgb(var(--background-start-rgb));
   display: flex;
-  /* width: 100%; */
   height: 2.25rem;
   padding: 0 1rem;
   align-items: center;
@@ -240,12 +246,17 @@ a {
 }
 
 .colourTile input:not(:checked) + label {
-  background: radial-gradient(rgb(var(--background-start-rgb)) 70%, rgb(var(--background-start-rgb)) 100%);
+  background: rgb(var(--background-start-rgb));
 }
 
 .colourTile input:checked + label {
   background: radial-gradient(rgb(var(--highlight-start-rgb)) 70%, rgb(var(--highlight-end-rgb)) 100%);
   color: rgb(255, 255, 255);
+}
+
+.colourTile input:disabled + label {
+  background: radial-gradient(rgb(var(--background-start-rgb)) 70%, rgb(var(--background-start-rgb)) 100%);
+  color: rgb(var(--footer-text-rgb));
 }
 
 .colourTile label {
@@ -260,7 +271,7 @@ a {
   border: 0.125rem solid gray;
 }
 
-.colourTile label:hover {
+.colourTile input:not(:disabled) + label:hover {
   translate: -1px -1px;
   transition: all 0.1s ease;
   scale: 0.95 0.95;

@@ -1,14 +1,11 @@
-package main
+package day17
 
 import (
 	"container/heap"
-	"fmt"
 	"math"
 	"slices"
 	"strconv"
 	"strings"
-
-	tools "github.com/dsantos747/advent-of-code-2023/tools"
 )
 
 // Big thanks to u/Multipl in the AoC reddit
@@ -87,11 +84,11 @@ func (pq *PriorityQueue) Pop() any {
 }
 
 // update modifies the priority and value of an Node in the queue.
-func (pq *PriorityQueue) update(Node *Node, value string, priority int) {
-	// Node.value = value
-	Node.hl = priority
-	heap.Fix(pq, Node.index)
-}
+// func (pq *PriorityQueue) update(Node *Node, value string, priority int) {
+// 	// Node.value = value
+// 	Node.hl = priority
+// 	heap.Fix(pq, Node.index)
+// }
 
 // /////
 
@@ -100,7 +97,7 @@ func BFSwithPQ(input []string, maxStraight, minTurn int) int {
 	step0 := Step{0, 0, right, 0}
 	step1 := Step{0, 0, down, 0}
 
-	minHeatMap := map[Step]int{step0: 0, step0: 0} // Define intial starting points as 0
+	minHeatMap := map[Step]int{step0: 0, step1: 0} // Define intial starting points as 0
 
 	pq := PriorityQueue{&Node{0, step0, 0}, &Node{0, step1, 1}} // Add first two steps to queue
 	heap.Init(&pq)                                              // Initialise queue
@@ -172,17 +169,11 @@ func part2(input []string) int {
 	return bestSum
 }
 
-func main() {
-	data, err := tools.ReadInput("./input.txt")
-	if err != nil {
-		fmt.Println("Error reading input:", err)
-		return
-	}
+func Solve(data string) (int, int, error) {
 	input := strings.Split(data, "\n")
 
 	p1 := part1(input)
-	fmt.Println("The answer to part 1 is", p1)
-
 	p2 := part2(input)
-	fmt.Println("The answer to part 2 is", p2)
+
+	return p1, p2, nil
 }

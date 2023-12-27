@@ -5,3 +5,6 @@
 
 # Go exe files
 /backend/**/*.exe
+
+# AoC Input txt files
+/backend/**/input.txt

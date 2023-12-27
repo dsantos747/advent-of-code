@@ -30,6 +30,7 @@ function DayForm() {
   };
 
   const length = 25;
+  const unlocked = 11;
 
   return (
     <div className='content splash-content'>
@@ -44,10 +45,16 @@ function DayForm() {
                 onMouseLeave={() => setMouseOver(false)}
                 onMouseMove={handleMouseMove}>
                 {mouseOver && <div style={{ top: mousePos.y - 16, left: mousePos.x - 16 }} className='mouseGlow'></div>}
-                {Array.from({ length }, (_, i) => i + 1).map((item, index) => {
+                {Array.from({ length }, (_, i) => i + 1).map((item: number, index) => {
                   return (
                     <div key={index} className='colourTile' hidden={item > length ? true : false}>
-                      <input id={`radio_${item}`} type='radio' name='day' value={item} className=''></input>
+                      <input
+                        id={`radio_${item}`}
+                        type='radio'
+                        name='day'
+                        disabled={item > unlocked ? true : false}
+                        value={item}
+                        className=''></input>
                       <label htmlFor={`radio_${item}`} className=''>
                         {item}
                       </label>
