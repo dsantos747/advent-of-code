@@ -1,11 +1,8 @@
-package main
+package day19
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
-
-	tools "github.com/dsantos747/advent-of-code-2023/tools"
 )
 
 type Condition struct {
@@ -165,17 +162,11 @@ func part2(input []string) int {
 	return result
 }
 
-func main() {
-	data, err := tools.ReadInput("./input.txt")
-	if err != nil {
-		fmt.Println("Error reading input:", err)
-		return
-	}
+func Solve(data string) (int, int, error) {
 	input := strings.Split(data, "\n\n")
 
 	p1 := part1(input)
-	fmt.Println("The answer to part 1 is", p1)
-
 	p2 := part2(input)
-	fmt.Println("The answer to part 2 is", p2)
+
+	return p1, p2, nil
 }

@@ -1,12 +1,9 @@
-package main
+package day22
 
 import (
-	"fmt"
 	"sort"
 	"strconv"
 	"strings"
-
-	tools "github.com/dsantos747/advent-of-code-2023/tools"
 )
 
 type Pos struct {
@@ -176,17 +173,11 @@ func part2(brickMap map[int]Brick) int {
 	return total
 }
 
-func main() {
-	data, err := tools.ReadInput("./input.txt")
-	if err != nil {
-		fmt.Println("Error reading input:", err)
-		return
-	}
+func Solve(data string) (int, int, error) {
 	input := strings.Split(data, "\n")
 
 	p1, brickMap := part1(input)
-	fmt.Println("The answer to part 1 is", p1)
-
 	p2 := part2(brickMap)
-	fmt.Println("The answer to part 2 is", p2)
+
+	return p1, p2, nil
 }

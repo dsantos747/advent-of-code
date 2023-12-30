@@ -1,7 +1,6 @@
-package main
+package day21
 
 import (
-	"fmt"
 	"strings"
 
 	tools "github.com/dsantos747/advent-of-code-2023/tools"
@@ -63,20 +62,6 @@ func isInField(grid []string, pos Pos) bool {
 	return pos.j >= 0 && pos.j < len(grid[0]) && pos.i >= 0 && pos.i < len(grid)
 }
 
-func stepBFS(input []string, posMap map[Pos]bool) map[Pos]bool {
-	newPosMap := map[Pos]bool{}
-
-	for position := range posMap {
-		for _, dir := range [4]Pos{{0, 1}, {0, -1}, {1, 0}, {-1, 0}} {
-			next := Pos{position.i + dir.i, position.j + dir.j}
-			if input[tools.Mod(next.i, len(input))][tools.Mod(next.j, len(input[0]))] != '#' {
-				newPosMap[next] = true
-			}
-		}
-	}
-	return newPosMap
-}
-
 func part1(input []string) int {
 	i0, j0 := tools.FindSingleSubstring(input, "S")
 	init := State{i0, j0, 0}
@@ -85,37 +70,47 @@ func part1(input []string) int {
 }
 
 func part2(input []string) int {
+	l := len(input)
 	i0, j0 := tools.FindSingleSubstring(input, "S")
 	init := Pos{i0, j0}
-	l := len(input)
+	var q = []Pos{init}
 
-	posMap := map[Pos]bool{init: true}
-	yValues := [3]int{}
-	for i := 1; i <= (l/2)+2*l; i++ {
-		posMap = stepBFS(input, posMap)
-		if i == (l / 2) {
-			yValues[0] = len(posMap)
-		} else if i == (l/2)+l {
-			yValues[1] = len(posMap)
-		} else if i == (l/2)+2*l {
-			yValues[2] = len(posMap)
+	yVals := make([]int, ((l/2)+2*l)+1)
+	posMapOdd := map[Pos]bool{}
+	posMapEven := map[Pos]bool{init: true}
+
+	for i := 1; i < len(yVals); i++ {
+		var posMap *map[Pos]bool
+		if i%2 == 0 {
+			posMap = &posMapEven
+		} else {
+			posMap = &posMapOdd
 		}
-	}
 
-	return solveLagrange(26501365/l, yValues[:])
+		newQ := []Pos{}
+		for i := 0; i < len(q); i++ {
+			curr := q[i]
+			for _, dir := range [4]Pos{{0, 1}, {0, -1}, {1, 0}, {-1, 0}} {
+				next := Pos{curr.i + dir.i, curr.j + dir.j}
+				if input[tools.Mod(next.i, len(input))][tools.Mod(next.j, len(input[0]))] != '#' {
+					if _, ok := (*posMap)[next]; !ok {
+						(*posMap)[next] = true
+						newQ = append(newQ, next)
+					}
+				}
+			}
+		}
+		q = newQ
+		yVals[i] = len(*posMap)
+	}
+	return solveLagrange(26501365/l, []int{yVals[l/2], yVals[(l/2)+l], yVals[(l/2)+2*l]})
 }
 
-func main() {
-	data, err := tools.ReadInput("./input.txt")
-	if err != nil {
-		fmt.Println("Error reading input:", err)
-		return
-	}
+func Solve(data string) (int, int, error) {
 	input := strings.Split(data, "\n")
 
 	p1 := part1(input)
-	fmt.Println("The answer to part 1 is", p1)
-
 	p2 := part2(input)
-	fmt.Println("The answer to part 2 is", p2)
+
+	return p1, p2, nil
 }

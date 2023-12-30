@@ -1,7 +1,6 @@
-package main
+package day20
 
 import (
-	"fmt"
 	"strings"
 
 	tools "github.com/dsantos747/advent-of-code-2023/tools"
@@ -136,7 +135,7 @@ func part1(input []string) int {
 	var queue Queue
 	count := [2]int{0, 0}
 
-	for i := 0; i < 4000; i++ {
+	for i := 0; i < 1000; i++ {
 		queue = append(queue, Signal{"button", "broadcaster", 0})
 		count[0]++
 		for {
@@ -155,7 +154,6 @@ func part1(input []string) int {
 		}
 	}
 
-	// fmt.Println("Counts:", count)
 	product := count[0] * count[1]
 	return product
 }
@@ -169,6 +167,9 @@ func part2(input []string) int {
 	moduleMap := parse(input)
 	var queue Queue
 	count := [2]int{0, 0}
+	if _, ok := moduleMap["rx"]; !ok { // this if-ok allows test inputs to be run for part 1
+		return 0
+	}
 	inToRx := moduleMap["rx"].ins[0].src
 	keyInputs := []string{}
 	for _, in := range moduleMap[inToRx].ins {
@@ -216,23 +217,15 @@ func part2(input []string) int {
 		}
 	}
 
-	// fmt.Println(buttonCounts)
 	lcm := tools.LCM(buttonCounts)
-	// fmt.Println("Counts:", count)
 	return lcm
 }
 
-func main() {
-	data, err := tools.ReadInput("./input.txt")
-	if err != nil {
-		fmt.Println("Error reading input:", err)
-		return
-	}
+func Solve(data string) (int, int, error) {
 	input := strings.Split(data, "\n")
 
 	p1 := part1(input)
-	fmt.Println("The answer to part 1 is", p1)
-
 	p2 := part2(input)
-	fmt.Println("The answer to part 2 is", p2)
+
+	return p1, p2, nil
 }
