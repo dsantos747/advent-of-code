@@ -7,4 +7,4 @@
 /backend/**/*.exe
 
 # AoC Input txt files
-/backend/**/input.txt
+/backend/**/*.txt

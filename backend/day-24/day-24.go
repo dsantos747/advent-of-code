@@ -1,32 +1,24 @@
-package main
+package day24
 
 import (
-	"fmt"
+	"slices"
 	"strconv"
 	"strings"
-
-	tools "github.com/dsantos747/advent-of-code-2023/tools"
 )
 
-type Pos struct {
-	x int
-	y int
-	z int
-}
-
-type Line struct {
-	x0 int
-	y0 int
-	z0 int
-	dx int
-	dy int
-	dz int
+type Hailstone struct {
+	x0 float64
+	y0 float64
+	z0 float64
+	dx float64
+	dy float64
+	dz float64
 	m  float64
 	c  float64
 }
 
-func parseLines(input []string) []Line {
-	lines := []Line{}
+func parseLines(input []string) []Hailstone {
+	lines := []Hailstone{}
 	var m float64
 	var c float64
 
@@ -40,22 +32,20 @@ func parseLines(input []string) []Line {
 		m = float64(l[4]) / float64(l[3])
 		c = float64(l[1]) - m*float64(l[0])
 
-		lines = append(lines, Line{l[0], l[1], l[2], l[3], l[4], l[5], m, c})
+		lines = append(lines, Hailstone{float64(l[0]), float64(l[1]), float64(l[2]), float64(l[3]), float64(l[4]), float64(l[5]), m, c})
 	}
 	return lines
 }
 
-func checkLines(l1, l2 Line) int {
+func checkLines(l1, l2 Hailstone) int {
 	if l1.m == l2.m {
 		return 0
 	}
 
 	var xIn, yIn, boundMin, boundMax, l1x0, l1y0, l2x0, l2y0, l1x1, l1y1, l2x1, l2y1 float64
 
-	boundMin = 200000000000000
-	boundMax = 400000000000000
-	// boundMin = 7
-	// boundMax = 27
+	boundMin, boundMax = 200000000000000, 400000000000000
+	// boundMin,boundMax = 7,27
 
 	l1x0, l1x1, l1y0, l1y1 = getBounds(l1, boundMin, boundMax)
 	l2x0, l2x1, l2y0, l2y1 = getBounds(l2, boundMin, boundMax)
@@ -72,73 +62,53 @@ func checkLines(l1, l2 Line) int {
 	return 1
 }
 
-func getBounds(l Line, boundMin, boundMax float64) (float64, float64, float64, float64) {
+func getBounds(l Hailstone, boundMin, boundMax float64) (float64, float64, float64, float64) {
 	var lx0, ly0, lx1, ly1 float64
 
-	if l.dx > 0 {
-		if float64(l.x0) < boundMax {
-			lx1 = boundMax
-			lx0 = max(float64(l.x0), boundMin)
-			// if float64(l.x0) < boundMin {
-			// 	lx0 = boundMin
-			// } else {
-			// 	lx0 = float64(l.x0)
-			// }
-		} else {
-			// fmt.Println(l.dx, l.x0)
-			// fmt.Println("line out of bounds in x")
-		}
+	if l.dx > 0 && float64(l.x0) < boundMax {
+		lx1 = boundMax
+		lx0 = max(float64(l.x0), boundMin)
+
 	}
-	if l.dx <= 0 {
-		if float64(l.x0) > boundMin {
-			lx0 = boundMin
-			lx1 = min(float64(l.x0), boundMax)
-			// if float64(l.x0) > boundMax {
-			// 	lx1 = boundMax
-			// } else {
-			// 	lx1 = float64(l.x0)
-			// }
-		} else {
-			// fmt.Println("line out of bounds in x")
-		}
-		if l.dx == 0 {
-			fmt.Println("perfectly horizontal line")
-		}
+	if l.dx <= 0 && float64(l.x0) > boundMin {
+		lx0 = boundMin
+		lx1 = min(float64(l.x0), boundMax)
+
 	}
-	if l.dy > 0 {
-		if float64(l.y0) < boundMax {
-			ly1 = boundMax
-			ly0 = max(float64(l.y0), boundMin)
-			// if float64(l.y0) < boundMin {
-			// 	ly0 = boundMin
-			// } else {
-			// 	ly0 = float64(l.y0)
-			// }
-		} else {
-			// fmt.Println("line out of bounds in y")
-		}
+	if l.dy > 0 && float64(l.y0) < boundMax {
+		ly1 = boundMax
+		ly0 = max(float64(l.y0), boundMin)
+
 	}
-	if l.dy <= 0 {
-		if float64(l.y0) > boundMin {
-			ly0 = boundMin
-			ly1 = min(float64(l.y0), boundMax)
-			// if float64(l.y0) > boundMax {
-			// 	ly1 = boundMax
-			// } else {
-			// 	ly1 = float64(l.y0)
-			// }
-		} else {
-			// fmt.Println("line out of bounds in y")
-		}
-		if l.dx == 0 {
-			fmt.Println("perfectly vertical line")
-		}
+	if l.dy <= 0 && float64(l.y0) > boundMin {
+		ly0 = boundMin
+		ly1 = min(float64(l.y0), boundMax)
 	}
 
 	return lx0, lx1, ly0, ly1
 }
 
-func part1(input []string) int {
+func getIntersect3D(x, y []int) []int {
+	res := []int{}
+	for _, val := range x {
+		if slices.Contains(y, val) {
+			res = append(res, val)
+		}
+	}
+	return res
+}
+
+func matchVelocity(dv, pv int) []int {
+	res := []int{}
+	for v := -1000; v <= 1000; v++ {
+		if v != pv && dv%(v-pv) == 0 {
+			res = append(res, v)
+		}
+	}
+	return res
+}
+
+func part1(input []string) (int, []Hailstone) {
 	lines := parseLines(input)
 	total := 0
 
@@ -149,25 +119,65 @@ func part1(input []string) int {
 		}
 	}
 
-	return total
+	return total, lines
 }
 
-func part2(input []string) int {
+func part2(hailstones []Hailstone) int {
+	maybeX, maybeY, maybeZ := []int{}, []int{}, []int{}
 
-	return 0
-}
-
-func main() {
-	data, err := tools.ReadInput("./input.txt")
-	if err != nil {
-		fmt.Println("Error reading input:", err)
-		return
+	for i := 0; i < len(hailstones)-1; i++ {
+		for j := i + 1; j < len(hailstones); j++ {
+			a, b := hailstones[i], hailstones[j]
+			if a.dx == b.dx {
+				next := matchVelocity(int(b.x0-a.x0), int(a.dx))
+				if len(maybeX) == 0 {
+					maybeX = next
+				} else {
+					maybeX = getIntersect3D(maybeX, next)
+				}
+			}
+			if a.dy == b.dy {
+				next := matchVelocity(int(b.y0-a.y0), int(a.dy))
+				if len(maybeY) == 0 {
+					maybeY = next
+				} else {
+					maybeY = getIntersect3D(maybeY, next)
+				}
+			}
+			if a.dz == b.dz {
+				next := matchVelocity(int(b.z0-a.z0), int(a.dz))
+				if len(maybeZ) == 0 {
+					maybeZ = next
+				} else {
+					maybeZ = getIntersect3D(maybeZ, next)
+				}
+			}
+		}
 	}
+
+	result := 0
+	if len(maybeX) == 1 && len(maybeY) == 1 && len(maybeZ) == 1 {
+		rdx, rdy, rdz := float64(maybeX[0]), float64(maybeY[0]), float64(maybeZ[0])
+		hs1, hs2 := hailstones[0], hailstones[1]
+		m1 := (hs1.dy - rdy) / (hs1.dx - rdx)
+		m2 := (hs2.dy - rdy) / (hs2.dx - rdx)
+		c1 := hs1.y0 - (m1 * hs1.x0)
+		c2 := hs2.y0 - (m2 * hs2.x0)
+		rx := (c2 - c1) / (m1 - m2)
+		ry := m1*rx + c1
+		t := (rx - hs1.x0) / (hs1.dx - rdx)
+		rz := hs1.z0 + (hs1.dz-rdz)*t
+		result = int(rx + ry + rz)
+	}
+
+	return result
+}
+
+func Solve(data string) (int, int, error) {
 	input := strings.Split(data, "\n")
 
-	p1 := part1(input)
-	fmt.Println("The answer to part 1 is", p1)
+	p1, hailstones := part1(input)
+	p2 := part2(hailstones)
 
-	p2 := part2(input)
-	fmt.Println("The answer to part 2 is", p2)
+	return p1, p2, nil
 }
