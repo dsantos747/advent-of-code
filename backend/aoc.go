@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 	day1 "github.com/dsantos747/advent-of-code-2023/day-1"
@@ -15,7 +16,15 @@ import (
 	day15 "github.com/dsantos747/advent-of-code-2023/day-15"
 	day16 "github.com/dsantos747/advent-of-code-2023/day-16"
 	day17 "github.com/dsantos747/advent-of-code-2023/day-17"
+	day18 "github.com/dsantos747/advent-of-code-2023/day-18"
+	day19 "github.com/dsantos747/advent-of-code-2023/day-19"
 	day2 "github.com/dsantos747/advent-of-code-2023/day-2"
+	day20 "github.com/dsantos747/advent-of-code-2023/day-20"
+	day21 "github.com/dsantos747/advent-of-code-2023/day-21"
+	day22 "github.com/dsantos747/advent-of-code-2023/day-22"
+	day23 "github.com/dsantos747/advent-of-code-2023/day-23"
+	day24 "github.com/dsantos747/advent-of-code-2023/day-24"
+	day25 "github.com/dsantos747/advent-of-code-2023/day-25"
 	day3 "github.com/dsantos747/advent-of-code-2023/day-3"
 	day4 "github.com/dsantos747/advent-of-code-2023/day-4"
 	day5 "github.com/dsantos747/advent-of-code-2023/day-5"
@@ -51,6 +60,14 @@ var DayFunctions = []DayFunc{
 	day15.Solve,
 	day16.Solve,
 	day17.Solve,
+	day18.Solve,
+	day19.Solve,
+	day20.Solve,
+	day21.Solve,
+	day22.Solve,
+	day23.Solve,
+	day24.Solve,
+	day25.Solve,
 }
 
 func init() {
@@ -71,14 +88,12 @@ func HelloAOC(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&reqBody)
 	if err != nil {
-		// fmt.Fprintf(w, fmt.Sprintf("Failed to decode JSON data: %v", err))
-
 		http.Error(w, "Failed to decode JSON data", http.StatusBadRequest)
 		return
 	}
 
 	day := reqBody.Day - 1
-	input := reqBody.Input
+	input := strings.ReplaceAll(string(reqBody.Input), "\r\n", "\n")
 
 	if day < 0 || day >= len(DayFunctions) {
 		http.Error(w, "Invalid day index", http.StatusBadRequest)
