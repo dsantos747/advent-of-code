@@ -60,7 +60,7 @@ h6 {
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 5, 25, 22;
   --background-end-rgb: 0, 0, 0;
-  --highlight-start-rgb: 14, 107, 45;
+  --highlight-start-rgb: 24, 117, 55;
   --highlight-end-rgb: 10, 77, 32;
   --text-glow-rgba: 10, 77, 32, 1;
   --bulb-rgb: 244, 235, 100;
@@ -118,8 +118,8 @@ a {
   z-index: 50;
   text-shadow: 0 0 10px rgba(var(--text-glow-rgba));
   backdrop-filter: blur(20px);
-  mask: linear-gradient(0deg, transparent, black 50%);
-  -webkit-mask: linear-gradient(0deg, transparent, black 50%);
+  mask: linear-gradient(0deg, transparent, black 40%);
+  -webkit-mask: linear-gradient(0deg, transparent, black 40%);
 }
 
 #header .content {
@@ -165,11 +165,13 @@ a {
 #challengeDay div {
   margin: 0.125rem;
   /* z-index: 0; */
+  max-width: 300px;
 }
 
 #challengeText textarea {
   margin: 0.25rem 0.5rem;
   width: 100%;
+  max-width: 300px;
 }
 
 #challengeForm button {
@@ -183,6 +185,7 @@ a {
 }
 
 #challengeForm button:hover {
+  cursor: pointer;
   border-color: rgb(var(--highlight-start-rgb));
   transition: border 0.15s ease;
   translate: -1px -1px;
@@ -222,11 +225,11 @@ a {
 
 .mouseGlow {
   position: absolute;
-  width: 2rem;
+  width: 4rem;
   aspect-ratio: 1;
   background-color: rgb(var(--highlight-start-rgb));
   border-radius: 100%;
-  filter: blur(0.5rem);
+  filter: blur(2rem);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease;
@@ -275,6 +278,7 @@ a {
   translate: -1px -1px;
   transition: all 0.1s ease;
   scale: 0.95 0.95;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
@@ -289,6 +293,7 @@ a {
 
   #challengeForm {
     max-width: 100%;
+    max-width: 300px;
   }
 
   .container {

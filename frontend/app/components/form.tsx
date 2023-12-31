@@ -23,6 +23,15 @@ function DayForm() {
   const [mouseOver, setMouseOver] = useState<boolean>(false);
   const { pending } = useFormStatus();
   const [formState, formAction] = useFormState(getResult, initialState);
+  const [rect, setRect] = useState<DOMRect | null>(null);
+
+  useEffect(() => {
+    const grid = document.getElementsByClassName('colourGrid')[0];
+    if (grid) {
+      const newRect = grid.getBoundingClientRect();
+      setRect(newRect);
+    }
+  }, []);
 
   const handleMouseMove: any = (event: React.MouseEvent<Window, MouseEvent>) => {
     const { clientX, clientY } = event;
@@ -30,7 +39,7 @@ function DayForm() {
   };
 
   const length = 25;
-  const unlocked = 11;
+  const unlocked = 25;
 
   return (
     <div className='content splash-content'>
@@ -44,7 +53,14 @@ function DayForm() {
                 onMouseEnter={() => setMouseOver(true)}
                 onMouseLeave={() => setMouseOver(false)}
                 onMouseMove={handleMouseMove}>
-                {mouseOver && <div style={{ top: mousePos.y - 16, left: mousePos.x - 16 }} className='mouseGlow'></div>}
+                {mouseOver && (
+                  <div
+                    style={{
+                      top: (rect?.y ?? 0) + (rect?.height ?? 0) / 2 + 0.5 * (mousePos.y - ((rect?.y ?? 0) + (rect?.height ?? 0) / 2)) - 32,
+                      left: (rect?.x ?? 0) + (rect?.width ?? 0) / 2 + 0.5 * (mousePos.x - ((rect?.x ?? 0) + (rect?.width ?? 0) / 2)) - 32,
+                    }}
+                    className='mouseGlow'></div>
+                )}
                 {Array.from({ length }, (_, i) => i + 1).map((item: number, index) => {
                   return (
                     <div key={index} className='colourTile' hidden={item > length ? true : false}>
