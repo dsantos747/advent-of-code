@@ -11,8 +11,6 @@ const debounce = (func: Function, delay: number) => {
   };
 };
 
-type Props = {};
-
 const initialState = {
   p1: null,
   p2: null,
