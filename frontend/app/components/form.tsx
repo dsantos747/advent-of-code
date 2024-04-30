@@ -10,7 +10,7 @@ interface Year {
 }
 
 const Years: Year[] = [
-  { Year: '2015', Locked: false, UnlockedDays: 1 },
+  { Year: '2015', Locked: false, UnlockedDays: 3 },
   { Year: '2016', Locked: true, UnlockedDays: 0 },
   { Year: '2017', Locked: true, UnlockedDays: 0 },
   { Year: '2018', Locked: true, UnlockedDays: 0 },

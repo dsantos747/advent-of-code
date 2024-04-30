@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// ReadInput returns a slice of all lines in r. oc: ashishjh-bst
+// ReadInput returns a slice of all lines in file at path
 func ReadInput(path string) (string, error) {
 	file, err := os.Open(path)
 	if err != nil {
@@ -18,7 +18,7 @@ func ReadInput(path string) (string, error) {
 		return "", fmt.Errorf("failed to read file %s, error: %s", path, err.Error())
 	}
 
-	// Below line hopefully accounts for usage of CRLF
+	// Below line accounts for usage of CRLF
 	dataString := strings.ReplaceAll(string(data), "\r\n", "\n")
 	return dataString, nil
 }
