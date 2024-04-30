@@ -162,6 +162,12 @@ a {
   height: 100%;
 }
 
+#challengeYear {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
 #challengeDay div {
   margin: 0.125rem;
   /* z-index: 0; */

@@ -6,7 +6,7 @@ import (
 
 	// Blank-import the function package so the init() runs
 	"github.com/GoogleCloudPlatform/functions-framework-go/funcframework"
-	_ "github.com/dsantos747/advent-of-code-2023"
+	_ "github.com/dsantos747/advent-of-code"
 )
 
 func main() {

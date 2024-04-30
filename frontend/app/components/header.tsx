@@ -1,13 +1,11 @@
 import ThemeSwitch from './themeSwitch';
 
-type Props = {};
-
-function Header({}: Props) {
+function Header() {
   return (
     <div id='header' className=''>
       <div className='content'>
         <div>
-          <h1>Advent of Code 2023</h1>
+          <h1>Advent of Code</h1>
           <p>Solutions Calculator</p>
         </div>
 

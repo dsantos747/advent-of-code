@@ -1,7 +1,25 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { getResult } from '../actions/actions';
+
+interface Year {
+  Year: string;
+  Locked: boolean;
+  UnlockedDays: number;
+}
+
+const Years: Year[] = [
+  { Year: '2015', Locked: true, UnlockedDays: 0 },
+  { Year: '2016', Locked: true, UnlockedDays: 0 },
+  { Year: '2017', Locked: true, UnlockedDays: 0 },
+  { Year: '2018', Locked: true, UnlockedDays: 0 },
+  { Year: '2019', Locked: true, UnlockedDays: 0 },
+  { Year: '2020', Locked: true, UnlockedDays: 0 },
+  { Year: '2021', Locked: true, UnlockedDays: 0 },
+  { Year: '2022', Locked: false, UnlockedDays: 25 },
+  { Year: '2023', Locked: false, UnlockedDays: 25 },
+];
 
 const debounce = (func: Function, delay: number) => {
   let timeoutId: number; //ReturnType<typeof setTimeout>;
@@ -22,6 +40,7 @@ function DayForm() {
   const { pending } = useFormStatus();
   const [formState, formAction] = useFormState(getResult, initialState);
   const [rect, setRect] = useState<DOMRect | null>(null);
+  const [year, setYear] = useState<Year>(Years[Years.length - 1]);
 
   useEffect(() => {
     const grid = document.getElementsByClassName('colourGrid')[0];
@@ -36,13 +55,34 @@ function DayForm() {
     setMousePos({ x: clientX, y: clientY });
   };
 
-  const length = 25;
-  const unlocked = 25;
+  const handleYearDropdown = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      const selectedYear = Years.find((s) => s.Year === e.target.value);
+      if (selectedYear) {
+        setYear(selectedYear);
+      }
+    },
+    [year]
+  );
+
+  const maxDays = 25;
 
   return (
     <div className='content splash-content'>
       <div className=''>
         <form id='challengeForm' action={formAction} className=''>
+          <div id='challengeYear'>
+            <label htmlFor='year'>Year:</label>
+            <select id='year' name='year' value={year.Year} onChange={handleYearDropdown}>
+              {Years.map((y) => {
+                return (
+                  <option key={y.Year} disabled={y.Locked}>
+                    {y.Year}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
           <div id='challengeDay'>
             <label>Choose Challenge Day:</label>
             <div className=''>
@@ -59,14 +99,15 @@ function DayForm() {
                     }}
                     className='mouseGlow'></div>
                 )}
-                {Array.from({ length }, (_, i) => i + 1).map((item: number, index) => {
+                {Array.from(Array(maxDays).keys()).map((item: number) => {
+                  item += 1;
                   return (
-                    <div key={index} className='colourTile' hidden={item > length ? true : false}>
+                    <div key={item} className='colourTile' hidden={item > maxDays}>
                       <input
                         id={`radio_${item}`}
                         type='radio'
                         name='day'
-                        disabled={item > unlocked ? true : false}
+                        disabled={item > year.UnlockedDays}
                         value={item}
                         className=''></input>
                       <label htmlFor={`radio_${item}`} className=''>
@@ -78,7 +119,7 @@ function DayForm() {
               </div>
             </div>
           </div>
-          <div id='challengeText' className='flex flex-col'>
+          <div id='challengeText'>
             <label htmlFor='textInput'>Paste your input below:</label>
             <textarea id='textInput' name='textInput'></textarea>
           </div>

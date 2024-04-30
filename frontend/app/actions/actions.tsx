@@ -1,10 +1,11 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
-
 export async function getResult(prevState: any, formdata: FormData) {
-  // console.log(formdata);
-  const data = { 'day': parseInt(formdata.get('day') as string, 10), 'input': formdata.get('textInput') };
+  const data = {
+    'year': parseInt(formdata.get('year') as string, 10),
+    'day': parseInt(formdata.get('day') as string, 10),
+    'input': formdata.get('textInput'),
+  };
   const baseUrl = process.env.API_URL;
   const response = await fetch(`${baseUrl}`, {
     cache: 'no-store',
