@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
+	aoc2015 "github.com/dsantos747/advent-of-code/2015"
 	aoc2023 "github.com/dsantos747/advent-of-code/2023"
 )
 
@@ -19,20 +20,12 @@ type RequestBody struct {
 type YearFunc func(day int, input string) (*map[string]int, error)
 
 var YearFunctions = map[int]YearFunc{
+	2015: aoc2015.SolveDay,
 	2023: aoc2023.SolveDay,
 }
 
-// Is this necessary?
 func init() {
 	functions.HTTP("HelloAOC", HelloAOC)
-	// mux := http.NewServeMux()
-	// mux.HandleFunc("/", HelloAOC)
-
-	// // Use CORS middleware
-	// handler := cors.Default().Handler(mux)
-
-	// // Start the server
-	// http.ListenAndServe(":8080", handler)
 }
 
 func HelloAOC(w http.ResponseWriter, r *http.Request) {
