@@ -9,6 +9,7 @@ import (
 	day4 "github.com/dsantos747/advent-of-code/2015/day-4"
 	day5 "github.com/dsantos747/advent-of-code/2015/day-5"
 	day6 "github.com/dsantos747/advent-of-code/2015/day-6"
+	day7 "github.com/dsantos747/advent-of-code/2015/day-7"
 )
 
 type RequestBody struct {
@@ -25,6 +26,7 @@ var DayFunctions = []DayFunc{
 	day4.Solve,
 	day5.Solve,
 	day6.Solve,
+	day7.Solve,
 }
 
 func SolveDay(day int, input string) (*map[string]int, error) {
