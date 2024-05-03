@@ -1,37 +1,40 @@
-package main
+package day9
 
 import (
-	"fmt"
 	"math"
 	"strconv"
 	"strings"
-
-	"github.com/dsantos747/advent-of-code/tools"
 )
 
-// ... how the heck...
-// maybe look at https://github.com/coussej/adventofcode-solutions/blob/master/2015/day09/main.go
-// Thanks again to reddit user u/coussej
+// Thanks to github.com/teivah - needed some help from him to get me started
 
-type distances map[string]map[string]int
+type Routes struct {
+	distances map[string]map[string]int
+}
 
-func makeDistanceMap(input []string) distances {
-	distances := distances{}
+func makeDistanceMap(input []string) Routes {
+	r := Routes{distances: make(map[string]map[string]int)}
 
 	for _, line := range input {
 		s := strings.Split(line, " ")
+		from, to := s[0], s[2]
 		dist, _ := strconv.Atoi(s[4])
 
-		if _, ok := distances[s[0]]; !ok {
-			distances[s[0]] = map[string]int{}
+		if _, ok := r.distances[from]; !ok {
+			r.distances[from] = map[string]int{}
 		}
-		distances[s[0]][s[2]] = dist
+		r.distances[from][to] = dist
+
+		if _, ok := r.distances[to]; !ok {
+			r.distances[to] = map[string]int{}
+		}
+		r.distances[to][from] = dist
 	}
 
-	return distances
+	return r
 }
 
-func (d distances) findShortestRoute(visited map[string]bool, currPlace string, totalDist int) int {
+func (r *Routes) findShortestRoute(visited map[string]bool, currPlace string, totalDist int) int {
 	allVisited := true
 
 	for _, isVisited := range visited {
@@ -53,9 +56,43 @@ func (d distances) findShortestRoute(visited map[string]bool, currPlace string, 
 
 			distance := 0
 			if currPlace == "" {
-				distance = d.findShortestRoute(visited, place, 0)
+				distance = r.findShortestRoute(visited, place, 0)
 			} else {
-				distance = d.findShortestRoute(visited, place, totalDist+d[currPlace][place])
+				distance = r.findShortestRoute(visited, place, totalDist+r.distances[currPlace][place])
+			}
+			best = min(best, distance)
+			visited[place] = false
+		}
+	}
+
+	return best
+}
+
+func (r *Routes) findLongestRoute(visited map[string]bool, currPlace string, totalDist int) int {
+	allVisited := true
+
+	for _, isVisited := range visited {
+		if !isVisited {
+			allVisited = false
+			break
+		}
+	}
+
+	if allVisited {
+		return totalDist
+	}
+
+	best := -1
+
+	for place, isVisited := range visited {
+		if !isVisited {
+			visited[place] = true
+
+			distance := 0
+			if currPlace == "" {
+				distance = r.findLongestRoute(visited, place, 0)
+			} else {
+				distance = r.findLongestRoute(visited, place, totalDist+r.distances[currPlace][place])
 			}
 			best = max(best, distance)
 			visited[place] = false
@@ -63,6 +100,13 @@ func (d distances) findShortestRoute(visited map[string]bool, currPlace string, 
 	}
 
 	return best
+}
+
+func min(a, b int) int {
+	if a > b {
+		return b
+	}
+	return a
 }
 
 func max(a, b int) int {
@@ -73,36 +117,30 @@ func max(a, b int) int {
 }
 
 func part1(data []string) int {
-	dists := makeDistanceMap(data)
+	r := makeDistanceMap(data)
 	visited := map[string]bool{}
-	for place := range dists {
+	for place := range r.distances {
 		visited[place] = false
 	}
-	return dists.findShortestRoute(visited, "", 0)
+
+	return r.findShortestRoute(visited, "", 0)
 }
 
 func part2(data []string) int {
-	result := 0
+	r := makeDistanceMap(data)
+	visited := map[string]bool{}
+	for place := range r.distances {
+		visited[place] = false
+	}
 
-	return result
+	return r.findLongestRoute(visited, "", 0)
 }
 
-// func Solve(data string) (*int, *int, error) {
-// 	input := strings.Split(data, "\n")
-
-// 	p1 := part1(input)
-// 	p2 := part2(input)
-
-// 	return &p1, &p2, nil
-// }
-
-func main() {
-	data, _ := tools.ReadInput("./input.txt")
+func Solve(data string) (*int, *int, error) {
 	input := strings.Split(data, "\n")
 
 	p1 := part1(input)
 	p2 := part2(input)
 
-	fmt.Println(p1)
-	fmt.Println(p2)
+	return &p1, &p2, nil
 }
