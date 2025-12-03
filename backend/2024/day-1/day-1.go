@@ -1,4 +1,4 @@
-package main
+package day1
 
 import (
 	"fmt"
@@ -6,8 +6,6 @@ import (
 	"slices"
 	"strconv"
 	"strings"
-
-	"github.com/dsantos747/advent-of-code/tools"
 )
 
 func part1(input []string) int {
@@ -95,14 +93,4 @@ func Solve(data string) (*int, *int, error) {
 	p2 := part2(input)
 
 	return &p1, &p2, nil
-}
-
-func main() {
-	data, err := tools.ReadInput("./2024/day-1/input.txt")
-	if err != nil {
-		panic(err)
-	}
-	p1, p2, err := Solve(data)
-	fmt.Println("Part 1:", *p1)
-	fmt.Println("Part 2:", *p2)
 }
